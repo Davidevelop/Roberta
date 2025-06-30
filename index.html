@@ -216,6 +216,12 @@
 
         naoBtn.addEventListener('mouseover', moveButton);
         
+        // Adiciona evento de toque para mobile
+        naoBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Impede que o navegador processe o clique
+            moveButton();
+        });
+        
         naoBtn.addEventListener('click', function() {
             alert("Não adianta clicar, eu sou inevitável! 😎");
             moveButton();
