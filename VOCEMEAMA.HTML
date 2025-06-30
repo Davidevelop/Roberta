@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uma Pergunta Importante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fce4ec; /* Rosa bem clarinho */
+            font-family: 'Nunito', sans-serif; /* Nova fonte, mais legível */
+            font-weight: 700; /* Deixa a fonte mais cheinha e fofa */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative; /* Para os corações */
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff80ab; /* Rosa para os corações */
+            transform: rotate(-45deg);
+            animation: float 10s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff80ab;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 10px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(-45deg) scale(1); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(-45deg) scale(0); opacity: 0; }
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        h1 {
+            color: #d81b60; /* Rosa mais forte */
+            font-size: 2.2em; /* Ajuste de tamanho para caber o nome */
+        }
+
+        h2 {
+            color: #e91e63; /* Um tom de rosa diferente */
+            font-size: 1.1em;
+            font-weight: 400; /* Mais leve que o título principal */
+            margin-top: -15px;
+            margin-bottom: 30px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2em;
+            margin-top: 20px;
+            height: 30px; /* Para não pular o layout */
+        }
+        
+        #final-message h1 {
+            color: #4caf50; /* Verde para a mensagem final */
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+        }
+
+        #sim {
+            background-color: #4caf50; /* Verde */
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        #sim:hover {
+            transform: scale(1.2); /* Aumenta mais para ser mais atrativo */
+        }
+
+        #nao {
+            background-color: #f44336; /* Vermelho */
+            color: white;
+            position: fixed; /* Posição fixa para mover na tela toda */
+        }
+        
+        #final-message {
+            display: none; /* Escondido por padrão */
+        }
+
+        /* Otimizações para Celular */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 0 15px; /* Evita que a caixa cole nas bordas */
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            h2 {
+                font-size: 0.9em;
+                margin-bottom: 20px;
+            }
+
+            button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+            
+            #final-message h1 {
+                font-size: 1.5em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Corações flutuando -->
+    <script>
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.animationDelay = (Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
+
+    <div class="container" id="game-container">
+        <h1>Roberta Baiense, você me ama? ❤️</h1>
+        <h2>(vulgo minha gatinha, futura esposa, a mais linda de todas)</h2>
+        <p id="message">Pensa com carinho, hein?!</p>
+        <div class="buttons">
+            <button id="sim">Siiiim!</button>
+            <button id="nao">Não</button>
+        </div>
+    </div>
+    
+    <div class="container" id="final-message">
+        <h1>Sabia! Também te amo, meu amor! <br> Já podemos casar 💍 kkk</h1>
+    </div>
+
+    <script>
+        const simBtn = document.getElementById('sim');
+        const naoBtn = document.getElementById('nao');
+        const finalMessage = document.getElementById('final-message');
+        const gameContainer = document.getElementById('game-container');
+        const message = document.getElementById('message');
+
+        const funnyMessages = [
+            "Tem certeza? 🤔",
+            "Pensa bem...",
+            "Botão errado, tenta de novo!",
+            "Opa, sua mão escorregou?",
+            "Você não quer partir meu coração, quer?",
+            "A outra opção é mais bonita!",
+            "Eu vi você olhando pro SIM...",
+            "Não faz isso comigo... 🥺",
+            "É só um clique no SIM, vai...",
+            "Esse 'não' não funciona, desisti."
+        ];
+
+        simBtn.addEventListener('click', function() {
+            gameContainer.style.display = 'none';
+            finalMessage.style.display = 'block';
+        });
+
+        function moveButton() {
+            const btnRect = naoBtn.getBoundingClientRect();
+            const maxX = window.innerWidth - btnRect.width;
+            const maxY = window.innerHeight - btnRect.height;
+            
+            naoBtn.style.left = Math.random() * maxX + 'px';
+            naoBtn.style.top = Math.random() * maxY + 'px';
+
+            message.textContent = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+        }
+
+        naoBtn.addEventListener('mouseover', moveButton);
+        
+        naoBtn.addEventListener('click', function() {
+            alert("Não adianta clicar, eu sou inevitável! 😎");
+            moveButton();
+        });
+        
+        // Coloca o botão "Não" em uma posição inicial
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnRect = naoBtn.getBoundingClientRect();
+            naoBtn.style.top = '50%';
+            naoBtn.style.left = `calc(50% + ${btnRect.width * 1.5}px)`;
+        });
+
+    </script>
+
+</body>
+</html>
